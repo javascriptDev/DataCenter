@@ -34,12 +34,10 @@ fml.define('DataCenter/js/components/base', function (require, exports) {
     }
 
     function Base() {
-
         this.class = 'c';
         this.inner = '';
         var me = this;
         this.configurableProperties = [];
-
     }
 
     Base.prototype = {
