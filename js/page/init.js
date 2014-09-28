@@ -67,9 +67,12 @@ fml.define('DataCenter/js/page/init',
                 var o = new struck[type]().init();   //Object.create(struct[type]);
                 //dom 对应 object
                 var index = 'a' + Object.keys(cache).length;
-                o.el.setAttribute('data-id', index);
+                var targetEl = o.appEl;
+                //如果是node就渲染el
+                (type == 'node') && (targetEl = o.el);
+                targetEl.setAttribute('data-id', index);
                 cache[index] = o;
-                oel.appendChild(o.el);
+                oel.appendChild(targetEl);
                 cache[oel.parentNode.getAttribute('data-id')].childs.push(o);
             })
             center.on('dragover', function (e) {
@@ -84,9 +87,9 @@ fml.define('DataCenter/js/page/init',
             o.el.setAttribute('data-id', index);
             cache[index] = o;
             center.append(o.el);
-
         }
 
+        //递归 child
         function recursive(par, o) {
             if (par.childs && par.childs.length > 0) {
                 for (var i = 0, len = par.childs.length; i < len; i++) {

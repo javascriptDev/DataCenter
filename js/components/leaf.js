@@ -9,14 +9,15 @@ fml.define('DataCenter/js/components/leaf',
             constructor = Base.ct,
             controlType = Base.type;
 
-
         function Leaf() {
 
         }
 
         var proto = Leaf.prototype = Object.create(new constructor());
         proto.class += ' leaf';
+        proto.appearanceCls += ' app-leaf';
         proto.inner = '<input class="value">';
+        proto.text = '不可重复子节点';
 
         var prop = [
             {

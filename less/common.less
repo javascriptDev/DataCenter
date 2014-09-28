@@ -1,4 +1,36 @@
+
+.h50 {
+  height: 50%;
+}
+
+.border(@color:red) {
+  border: 1px solid @color;
+}
+
+.height(@height:20px) {
+  height: @height;
+  line-height: @height;
+}
+.h100 {
+  height: 100%;
+}
 * {
   padding: 0;
   margin: 0;
+}
+
+.br(@width:1px,@color:white) {
+  border-right: @width solid @color;
+}
+
+.bl(@width:1px,@color:white) {
+  border-left: @width solid @color;
+}
+
+.bt(@width:1px,@color:white) {
+  border-top: @width solid @color;
+}
+
+.bb(@width:1px,@color:white) {
+  border-bottom: @width solid @color;
 }

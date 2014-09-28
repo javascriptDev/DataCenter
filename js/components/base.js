@@ -36,21 +36,39 @@ fml.define('DataCenter/js/components/base', function (require, exports) {
     function Base() {
         this.class = 'c';
         this.inner = '';
+        this.appearanceCls = 'app-c'
+
         var me = this;
         this.configurableProperties = [];
     }
 
+    var menu = '<div class="menu"><div class="menu-x">x</div>' +
+        '<div class="menu-item">删除</div>' +
+        '<div class="menu-item">上移</div>' +
+        '<div class="menu-item">保存</div>' +
+        '<div class="menu-item">下移</div>' +
+        '</div>';
     Base.prototype = {
+        menu: function () {
+
+            $(menu).onclick(function () {
+                alert(1);
+            })
+
+        },
         init: function () {
-            var html = '<div class="' + this.class + '">' + this.inner + '</div>';
-            this.el = $(html)[0];
+            var html = '<div class="' + (this.class || '') + ' ' + (this.appearanceCls || '') + '">' + (this.text || '') + '</div>';
+            this.appEl = $(html)[0];
+            this.el = $(html).append(this.inner)[0];
+
             this.addEvent();
+            this.initalized = true;
             return this;
         },
         addEvent: function () {
             var container = $('.right');
             var me = this;
-            $(this.el).on('click', function (e) {
+            var evt = function (e) {
                 e.stopPropagation();
                 var html = '';
                 for (var i = 0, len = me.configurableProperties.length; i < len; i++) {
@@ -60,7 +78,12 @@ fml.define('DataCenter/js/components/base', function (require, exports) {
                     }(i))
                 }
                 container.html(html);
-            })
+                var x = e.clientX, y = e.clientY;
+                $('body').append(me.menu.css({'top': y, 'left': x}));
+            };
+
+            $(this.el).on('click', evt);
+            $(this.appEl).on('click', evt);
         },
         createElByName: function (type, label, value) {
             var html = '<div>' + label;
@@ -69,7 +92,7 @@ fml.define('DataCenter/js/components/base', function (require, exports) {
                     html += '<input type="text" value="' + (value || '') + '">';
                     break;
                 case ControlType.check:
-                    html += ' true<input type="checkbox" class="t"> false<input type="checkbox" class="f">';
+                    html += ' true <input type="checkbox" class="t"> false<input type="checkbox" class="f">';
                     break;
                 default :
                     return '';
@@ -78,6 +101,7 @@ fml.define('DataCenter/js/components/base', function (require, exports) {
             html += '</div>';
             return html;
         }
+
     }
     return  { ct: Base, type: ControlType};
 })

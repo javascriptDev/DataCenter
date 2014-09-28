@@ -15,7 +15,8 @@ fml.define('DataCenter/js/components/node',
 
         var proto = Node.prototype = Object.create(new constructor());
         proto.class += ' node';
-        proto.inner = '<div class="title">节点</div><div class="content"></div>';
+        proto.appearanceCls += ' app-node';
+        proto.inner = '<div class="title">目录节点</div><div class="content"></div>';
         proto.isR = true;
 
         proto.configurableProperties.push({
