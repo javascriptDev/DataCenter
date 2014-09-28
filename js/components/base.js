@@ -1,11 +1,12 @@
 /**
  * Created by a2014 on 14-9-26.
  */
-fml.define('DataCenter/js/components/base', function (require, exports) {
+fml.define('DataCenter/js/components/base', ['DataCenter/js/lib/ps'], function (require, exports) {
     var ControlType = {
         text: 'text',
         check: 'check'
     }
+    var EventEmitter = require('DataCenter/js/lib/ps');
 
     function inherit(subclass, superclass) {
         var F = function () {
@@ -49,13 +50,7 @@ fml.define('DataCenter/js/components/base', function (require, exports) {
         '<div class="menu-item">下移</div>' +
         '</div>';
     Base.prototype = {
-        menu: function () {
-
-            $(menu).onclick(function () {
-                alert(1);
-            })
-
-        },
+        menu: $(menu),
         init: function () {
             var html = '<div class="' + (this.class || '') + ' ' + (this.appearanceCls || '') + '">' + (this.text || '') + '</div>';
             this.appEl = $(html)[0];
@@ -69,7 +64,7 @@ fml.define('DataCenter/js/components/base', function (require, exports) {
             var container = $('.right');
             var me = this;
             var evt = function (e) {
-                e.stopPropagation();
+                e && e.stopPropagation();
                 var html = '';
                 for (var i = 0, len = me.configurableProperties.length; i < len; i++) {
                     (function (index) {
@@ -80,10 +75,16 @@ fml.define('DataCenter/js/components/base', function (require, exports) {
                 container.html(html);
                 var x = e.clientX, y = e.clientY;
                 $('body').append(me.menu.css({'top': y, 'left': x}));
+                $('.selected').removeClass('selected');
+                $(this).addClass('selected');
             };
 
             $(this.el).on('click', evt);
             $(this.appEl).on('click', evt);
+
+            me.menu.click(function (e) {
+              
+            })
         },
         createElByName: function (type, label, value) {
             var html = '<div>' + label;

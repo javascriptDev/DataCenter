@@ -10,7 +10,6 @@ fml.define('DataCenter/js/components/leaf',
             controlType = Base.type;
 
         function Leaf() {
-
         }
 
         var proto = Leaf.prototype = Object.create(new constructor());
@@ -36,6 +35,7 @@ fml.define('DataCenter/js/components/leaf',
                 key: 'reg'
             }
         ]
+
 
         prop.forEach(function (item) {
             proto.configurableProperties.push(item);

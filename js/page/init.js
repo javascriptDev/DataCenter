@@ -5,13 +5,27 @@ fml.define('DataCenter/js/page/init',
     [
         'DataCenter/js/components/leaf',
         'DataCenter/js/components/node',
-        'DataCenter/js/components/repeatLeaf'
+        'DataCenter/js/components/repeatLeaf',
+        'DataCenter/js/lib/ps'
     ], function (require, exports) {
 
         window.cache = {};
         var Leaf = require('DataCenter/js/components/leaf'),
             Node = require('DataCenter/js/components/node'),
-            RepeatLeaf = require('DataCenter/js/components/repeatLeaf');
+            RepeatLeaf = require('DataCenter/js/components/repeatLeaf'),
+            EventEmitter = require('DataCenter/js/lib/ps');
+        var guid = (function () {
+            function s4() {
+                return Math.floor((1 + Math.random()) * 0x10000)
+                    .toString(16)
+                    .substring(1);
+            }
+
+            return function () {
+                return s4() + s4() + '-' + s4() + '-' + s4();// + '-' +
+                //s4() + '-' + s4() + s4() + s4();
+            };
+        })();
 
         var left = $('.left-inner'),
             right = $('.right'),
@@ -27,6 +41,8 @@ fml.define('DataCenter/js/page/init',
                 leaf: Leaf,
                 rLeaf: RepeatLeaf
             }
+
+        initPubSub();
         initLayout();
         initLeft(leftItem);
         initDrag();
@@ -58,22 +74,8 @@ fml.define('DataCenter/js/page/init',
             })
 
             center.on('drop', function (e) {
-                var eo = e.originalEvent,
-                    oel = eo.srcElement;
+                EventEmitter.pub('add', e);
 
-                if (oel.className !== 'content') return;
-
-                var type = eo.dataTransfer.getData('type');
-                var o = new struck[type]().init();   //Object.create(struct[type]);
-                //dom 对应 object
-                var index = 'a' + Object.keys(cache).length;
-                var targetEl = o.appEl;
-                //如果是node就渲染el
-                (type == 'node') && (targetEl = o.el);
-                targetEl.setAttribute('data-id', index);
-                cache[index] = o;
-                oel.appendChild(targetEl);
-                cache[oel.parentNode.getAttribute('data-id')].childs.push(o);
             })
             center.on('dragover', function (e) {
                 e.preventDefault();
@@ -94,6 +96,7 @@ fml.define('DataCenter/js/page/init',
             if (par.childs && par.childs.length > 0) {
                 for (var i = 0, len = par.childs.length; i < len; i++) {
                     recursive(par.childs[i]);
+                    console.log(par);
                 }
             } else {
                 console.log(par);
@@ -106,4 +109,25 @@ fml.define('DataCenter/js/page/init',
             recursive(items, o);
 
         });
+
+        function initPubSub() {
+            EventEmitter.sub('add', function (e) {
+                var eo = e.originalEvent,
+                    oel = eo.srcElement;
+                if (oel.className !== 'content') return;
+                var type = eo.dataTransfer.getData('type');
+                var o = new struck[type]().init();   //Object.create(struct[type]);
+                //dom 对应 object
+                var index = 'a' + Object.keys(cache).length;
+                var targetEl = o.appEl;
+                //如果是node就渲染el
+                (type == 'node') && (targetEl = o.el);
+                targetEl.setAttribute('data-id', index);
+                o.id = guid();
+                targetEl.id = o.id;
+                cache[index] = o;
+                oel.appendChild(targetEl);
+                cache[oel.parentNode.getAttribute('data-id')].childs.push(o);
+            });
+        }
     })
