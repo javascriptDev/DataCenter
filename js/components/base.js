@@ -43,11 +43,11 @@ fml.define('DataCenter/js/components/base', ['DataCenter/js/lib/ps'], function (
         this.configurableProperties = [];
     }
 
-    var menu = '<div class="menu"><div class="menu-x">x</div>' +
-        '<div class="menu-item">删除</div>' +
-        '<div class="menu-item">上移</div>' +
-        '<div class="menu-item">保存</div>' +
-        '<div class="menu-item">下移</div>' +
+    var menu = '<div class="menu"><div class="menu-x i-close">x</div>' +
+        '<div class="menu-item i-del">删除</div>' +
+        '<div class="menu-item i-mup">上移</div>' +
+        '<div class="menu-item i-save">保存</div>' +
+        '<div class="menu-item i-mdown">下移</div>' +
         '</div>';
     Base.prototype = {
         menu: $(menu),
@@ -77,14 +77,11 @@ fml.define('DataCenter/js/components/base', ['DataCenter/js/lib/ps'], function (
                 $('body').append(me.menu.css({'top': y, 'left': x}));
                 $('.selected').removeClass('selected');
                 $(this).addClass('selected');
+                me.menu.target = $(this);
             };
 
             $(this.el).on('click', evt);
             $(this.appEl).on('click', evt);
-
-            me.menu.click(function (e) {
-              
-            })
         },
         createElByName: function (type, label, value) {
             var html = '<div>' + label;

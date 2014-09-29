@@ -10,6 +10,24 @@ fml.define('DataCenter/js/page/init',
     ], function (require, exports) {
 
         window.cache = {};
+
+        window.help = {
+            query: function (id) {
+                for (var i in cache) {
+                    if (cache[i].id == id) {
+                        return cache[i];
+                    }
+                }
+
+            },
+            del: function (id) {
+
+            },
+            modify: function (id, opt) {
+
+            }
+        }
+
         var Leaf = require('DataCenter/js/components/leaf'),
             Node = require('DataCenter/js/components/node'),
             RepeatLeaf = require('DataCenter/js/components/repeatLeaf'),
@@ -53,7 +71,6 @@ fml.define('DataCenter/js/page/init',
             left.height(height);
             right.height(height);
             center.height(height);
-
         }
 
         //初始化左边框
@@ -74,7 +91,7 @@ fml.define('DataCenter/js/page/init',
             })
 
             center.on('drop', function (e) {
-                EventEmitter.pub('add', e);
+                EventEmitter.pub('add', center, e);
 
             })
             center.on('dragover', function (e) {
@@ -87,8 +104,32 @@ fml.define('DataCenter/js/page/init',
             var o = new struck['node']().init(); //Object.create(struct['node']);
             var index = 'a' + Object.keys(cache).length;
             o.el.setAttribute('data-id', index);
+            o.id = guid();
             cache[index] = o;
             center.append(o.el);
+
+            o.menu.click(function (e) {
+//                console.log(o.menu.target)
+                var tar = e.originalEvent.srcElement,
+                    cls = tar.className,
+                    id = tar.id;
+                switch (cls.split(' ')[1]) {
+                    case 'i-mup':
+                        ;
+                        break;
+                    case 'i-mdown':
+                        ;
+                        break;
+                    case 'i-save':
+                        ;
+                        break;
+                    case 'i-del':
+                        console.log(help.query(id));
+                        break;
+                    default :
+                        break;
+                }
+            })
         }
 
         //递归 child
@@ -130,4 +171,6 @@ fml.define('DataCenter/js/page/init',
                 cache[oel.parentNode.getAttribute('data-id')].childs.push(o);
             });
         }
+
+
     })

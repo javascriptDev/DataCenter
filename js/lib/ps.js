@@ -4,10 +4,10 @@
 fml.define('DataCenter/js/lib/ps', function (require, exports) {
     var events = {};
     var EventEmitter = {
-        pub: function (name, param) {
+        pub: function (name,scope, param) {
             if (!events.hasOwnProperty(name))return;
             events[name].forEach(function (fun) {
-                fun.call(null, param);
+                fun.call(scope, param);
             })
         },
         sub: function (name, fn) {
