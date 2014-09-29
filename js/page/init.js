@@ -20,8 +20,12 @@ fml.define('DataCenter/js/page/init',
                 }
 
             },
-            del: function (id) {
-
+            del: function (id, cb) {
+                $.each(cache, function (key, value) {
+                    (value.id == id) && (delete cache[key]);
+                    cb && cb();
+                    return;
+                })
             },
             modify: function (id, opt) {
 
@@ -106,30 +110,40 @@ fml.define('DataCenter/js/page/init',
             o.el.setAttribute('data-id', index);
             o.id = guid();
             cache[index] = o;
+            o.el.id = o.id;
             center.append(o.el);
-
             o.menu.click(function (e) {
 //                console.log(o.menu.target)
-                var tar = e.originalEvent.srcElement,
-                    cls = tar.className,
-                    id = tar.id;
-                switch (cls.split(' ')[1]) {
-                    case 'i-mup':
-                        ;
-                        break;
-                    case 'i-mdown':
-                        ;
-                        break;
-                    case 'i-save':
-                        ;
-                        break;
-                    case 'i-del':
-                        console.log(help.query(id));
-                        break;
-                    default :
-                        break;
+                    var tar = e.originalEvent.srcElement,
+                        cls = tar.className,
+                        id = o.menu.target.id;
+
+                    switch (cls.split(' ')[1]) {
+                        case 'i-mup':
+                            ;
+                            break;
+                        case 'i-mdown':
+                            ;
+                            break;
+                        case 'i-save':
+                            ;
+                            break;
+                        case 'i-del':
+                            var to = help.query(id);
+                            to.el.parentNode.removeChild(to.el);
+                            to.appEl.parentNode.removeChild(to.appEl);
+                            help.del(id, function () {
+                                $('.menu').hide();
+                            });
+                            break;
+                        case 'i-close':
+                            $('.menu').hide();
+                            break;
+                        default :
+                            break;
+                    }
                 }
-            })
+            )
         }
 
         //递归 child
@@ -150,7 +164,6 @@ fml.define('DataCenter/js/page/init',
             recursive(items, o);
 
         });
-
         function initPubSub() {
             EventEmitter.sub('add', function (e) {
                 var eo = e.originalEvent,
@@ -171,6 +184,4 @@ fml.define('DataCenter/js/page/init',
                 cache[oel.parentNode.getAttribute('data-id')].childs.push(o);
             });
         }
-
-
     })

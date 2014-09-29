@@ -75,9 +75,10 @@ fml.define('DataCenter/js/components/base', ['DataCenter/js/lib/ps'], function (
                 container.html(html);
                 var x = e.clientX, y = e.clientY;
                 $('body').append(me.menu.css({'top': y, 'left': x}));
+                me.menu.show();
                 $('.selected').removeClass('selected');
                 $(this).addClass('selected');
-                me.menu.target = $(this);
+                me.menu.target = this;
             };
 
             $(this.el).on('click', evt);
@@ -99,7 +100,6 @@ fml.define('DataCenter/js/components/base', ['DataCenter/js/lib/ps'], function (
             html += '</div>';
             return html;
         }
-
     }
     return  { ct: Base, type: ControlType};
 })
