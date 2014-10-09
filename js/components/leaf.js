@@ -3,11 +3,12 @@
  */
 fml.define('DataCenter/js/components/leaf',
     [
-        'DataCenter/js/components/base'
+        'DataCenter/js/components/base',
+        'DataCenter/js/config/controlType'
     ], function (require, exports) {
         var Base = require('DataCenter/js/components/base'),
             constructor = Base.ct,
-            controlType = Base.type;
+            controlType = require('DataCenter/js/config/controlType');
 
         function Leaf() {
         }
@@ -21,17 +22,23 @@ fml.define('DataCenter/js/components/leaf',
         var prop = [
             {
                 type: controlType.text,
-                name: 'key值',
+                name: 'key',
                 key: 'key'
             },
             {
-                type: controlType.text,
-                name: '字段',
-                key: 'field'
+                type: controlType.select,
+                name: 'dataType',
+                key: 'dataType',
+                data: controlType
             },
             {
                 type: controlType.text,
-                name: '正则',
+                name: 'label',
+                key: 'label'
+            },
+            {
+                type: controlType.text,
+                name: 'regExp',
                 key: 'reg'
             }
         ]

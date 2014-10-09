@@ -1,12 +1,10 @@
 /**
  * Created by a2014 on 14-9-26.
  */
-fml.define('DataCenter/js/components/base', ['DataCenter/js/lib/ps'], function (require, exports) {
-    var ControlType = {
-        text: 'text',
-        check: 'check'
-    }
+fml.define('DataCenter/js/components/base', ['DataCenter/js/lib/ps', 'DataCenter/js/config/controlType'], function (require, exports) {
+
     var EventEmitter = require('DataCenter/js/lib/ps');
+    var ControlType = require('DataCenter/js/config/controlType');
 
     function inherit(subclass, superclass) {
         var F = function () {
@@ -69,7 +67,7 @@ fml.define('DataCenter/js/components/base', ['DataCenter/js/lib/ps'], function (
                 for (var i = 0, len = me.configurableProperties.length; i < len; i++) {
                     (function (index) {
                         var item = me.configurableProperties[index];
-                        html += me.createElByName(item.type, item.name, item.value);
+                        html += me.createElByName(item.type, item.name, item.value, item.data);
                     }(i))
                 }
                 container.html(html);
@@ -84,7 +82,7 @@ fml.define('DataCenter/js/components/base', ['DataCenter/js/lib/ps'], function (
             $(this.el).on('click', evt);
             $(this.appEl).on('click', evt);
         },
-        createElByName: function (type, label, value) {
+        createElByName: function (type, label, value, data) {
             var html = '<div>' + label;
             switch (type) {
                 case ControlType.text:
@@ -92,6 +90,13 @@ fml.define('DataCenter/js/components/base', ['DataCenter/js/lib/ps'], function (
                     break;
                 case ControlType.check:
                     html += ' true <input type="checkbox" class="t"> false<input type="checkbox" class="f">';
+                    break;
+                case ControlType.select:
+                    html += '<select>';
+                    for (var obj in data) {
+                        html += '<option>' + data[obj] + '</option>';
+                    }
+                    html += '</select>';
                     break;
                 default :
                     return '';

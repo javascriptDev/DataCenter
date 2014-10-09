@@ -37,6 +37,7 @@ fml.define('DataCenter/js/page/init',
                         .toString(16)
                         .substring(1);
                 }
+
                 return function () {
                     return s4() + s4() + '-' + s4() + '-' + s4();// + '-' +
                     //s4() + '-' + s4() + s4() + s4();
@@ -47,13 +48,13 @@ fml.define('DataCenter/js/page/init',
             right = $('.right'),
             center = $('article'),
             height = document.documentElement.clientHeight,
-            // 节点类型枚举
+        // 节点类型枚举
             leftItem = [
                 {name: 'node', text: '容器'},
                 {name: 'leaf', text: '数据节点'},
                 {name: 'rLeaf', text: '可重复数据节点'}
             ],
-            //节点构造函数
+        //节点构造函数
             struck = {
                 node: Node,
                 leaf: Leaf,
