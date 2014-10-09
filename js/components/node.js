@@ -18,7 +18,6 @@ fml.define('DataCenter/js/components/node',
         proto.appearanceCls += ' app-node';
         proto.inner = '<div class="title">目录节点</div><div class="content"></div>';
         proto.isR = true;
-
         proto.configurableProperties.push({
             type: controlType.check,
             name: 'isR',

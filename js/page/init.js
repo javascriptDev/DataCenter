@@ -8,56 +8,52 @@ fml.define('DataCenter/js/page/init',
         'DataCenter/js/components/repeatLeaf',
         'DataCenter/js/lib/ps'
     ], function (require, exports) {
-
-        window.cache = {};
-
-        window.help = {
-            query: function (id) {
-                for (var i in cache) {
-                    if (cache[i].id == id) {
-                        return cache[i];
+        var cache = {},
+            help = {
+                query: function (id) {
+                    for (var i in cache) {
+                        if (cache[i].id == id) {
+                            return cache[i];
+                        }
                     }
+                },
+                del: function (id, cb) {
+                    $.each(cache, function (key, value) {
+                        (value.id == id) && (delete cache[key]);
+                        cb && cb();
+                        return;
+                    });
+                },
+                modify: function (id, opt) {
                 }
-
             },
-            del: function (id, cb) {
-                $.each(cache, function (key, value) {
-                    (value.id == id) && (delete cache[key]);
-                    cb && cb();
-                    return;
-                })
-            },
-            modify: function (id, opt) {
-
-            }
-        }
-
-        var Leaf = require('DataCenter/js/components/leaf'),
+            Leaf = require('DataCenter/js/components/leaf'),
             Node = require('DataCenter/js/components/node'),
             RepeatLeaf = require('DataCenter/js/components/repeatLeaf'),
-            EventEmitter = require('DataCenter/js/lib/ps');
-        var guid = (function () {
-            function s4() {
-                return Math.floor((1 + Math.random()) * 0x10000)
-                    .toString(16)
-                    .substring(1);
-            }
-
-            return function () {
-                return s4() + s4() + '-' + s4() + '-' + s4();// + '-' +
-                //s4() + '-' + s4() + s4() + s4();
-            };
-        })();
+            EventEmitter = require('DataCenter/js/lib/ps'),
+            uuid = (function () {
+                function s4() {
+                    return Math.floor((1 + Math.random()) * 0x10000)
+                        .toString(16)
+                        .substring(1);
+                }
+                return function () {
+                    return s4() + s4() + '-' + s4() + '-' + s4();// + '-' +
+                    //s4() + '-' + s4() + s4() + s4();
+                };
+            })();
 
         var left = $('.left-inner'),
             right = $('.right'),
             center = $('article'),
             height = document.documentElement.clientHeight,
+            // 节点类型枚举
             leftItem = [
                 {name: 'node', text: '容器'},
                 {name: 'leaf', text: '数据节点'},
                 {name: 'rLeaf', text: '可重复数据节点'}
             ],
+            //节点构造函数
             struck = {
                 node: Node,
                 leaf: Leaf,
@@ -84,7 +80,6 @@ fml.define('DataCenter/js/page/init',
                 html += '<div draggable=true class="' + node.name + '">' + node.text + '</div>'
             })
             left.append(html);
-
         }
 
         //初始化拖拽事件
@@ -108,7 +103,7 @@ fml.define('DataCenter/js/page/init',
             var o = new struck['node']().init(); //Object.create(struct['node']);
             var index = 'a' + Object.keys(cache).length;
             o.el.setAttribute('data-id', index);
-            o.id = guid();
+            o.id = uuid();
             cache[index] = o;
             o.el.id = o.id;
             center.append(o.el);
@@ -162,8 +157,8 @@ fml.define('DataCenter/js/page/init',
             var items = cache['a0'];
             var o = {};
             recursive(items, o);
-
         });
+
         function initPubSub() {
             EventEmitter.sub('add', function (e) {
                 var eo = e.originalEvent,
@@ -177,7 +172,7 @@ fml.define('DataCenter/js/page/init',
                 //如果是node就渲染el
                 (type == 'node') && (targetEl = o.el);
                 targetEl.setAttribute('data-id', index);
-                o.id = guid();
+                o.id = uuid();
                 targetEl.id = o.id;
                 cache[index] = o;
                 oel.appendChild(targetEl);
