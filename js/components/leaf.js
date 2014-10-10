@@ -11,34 +11,44 @@ fml.define('DataCenter/js/components/leaf',
             controlType = require('DataCenter/js/config/controlType');
 
         function Leaf() {
+//            this.data = {
+//                key: '',
+//                type: '',
+//                label: '',
+//                regExp: ''
+//            }
+
         }
+
         var proto = Leaf.prototype = Object.create(new constructor());
         proto.class += ' leaf';
         proto.appearanceCls += ' app-leaf';
         proto.inner = '<input class="value">';
         proto.text = '不可重复子节点';
 
+
         var prop = [
             {
                 type: controlType.text,
-                name: 'key',
+                label: 'key',
                 key: 'key'
             },
             {
                 type: controlType.select,
-                name: 'dataType',
-                key: 'dataType',
+                label: 'datatype',
+                key: 'datatype',
                 data: controlType
             },
             {
                 type: controlType.text,
-                name: 'label',
+                label: 'label',
                 key: 'label'
             },
             {
                 type: controlType.text,
-                name: 'regExp',
-                key: 'reg'
+                label: 'regExp',
+                key: 'regExp',
+                key: 'regExp'
             }
         ]
         prop.forEach(function (item) {

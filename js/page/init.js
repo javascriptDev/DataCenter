@@ -8,7 +8,7 @@ fml.define('DataCenter/js/page/init',
         'DataCenter/js/components/repeatLeaf',
         'DataCenter/js/lib/ps'
     ], function (require, exports) {
-        var cache = {},
+        cache = {},
             help = {
                 query: function (id) {
                     for (var i in cache) {
@@ -122,7 +122,18 @@ fml.define('DataCenter/js/page/init',
                             ;
                             break;
                         case 'i-save':
-                            ;
+                            var to = help.query(id);
+                            var label = $('.vl-label').val(),
+                                type = $('.vl-datatype option:selected').text(),
+                                key = $('.vl-key').val(),
+                                regExp = $('.vl-regExp').val();
+                            to.data = {
+                                key: key,
+                                label: label,
+                                type: type,
+                                regExp: regExp
+                            }
+                            $('.menu').hide();
                             break;
                         case 'i-del':
                             var to = help.query(id);
@@ -136,6 +147,7 @@ fml.define('DataCenter/js/page/init',
                             $('.menu').hide();
                             break;
                         default :
+
                             break;
                     }
                 }
@@ -170,6 +182,7 @@ fml.define('DataCenter/js/page/init',
                 //dom 对应 object
                 var index = 'a' + Object.keys(cache).length;
                 var targetEl = o.appEl;
+
                 //如果是node就渲染el
                 (type == 'node') && (targetEl = o.el);
                 targetEl.setAttribute('data-id', index);
