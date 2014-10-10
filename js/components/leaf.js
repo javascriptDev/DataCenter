@@ -12,7 +12,6 @@ fml.define('DataCenter/js/components/leaf',
 
         function Leaf() {
         }
-
         var proto = Leaf.prototype = Object.create(new constructor());
         proto.class += ' leaf';
         proto.appearanceCls += ' app-leaf';
@@ -42,11 +41,8 @@ fml.define('DataCenter/js/components/leaf',
                 key: 'reg'
             }
         ]
-
-
         prop.forEach(function (item) {
             proto.configurableProperties.push(item);
         })
-
         return Leaf;
     })
