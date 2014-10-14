@@ -73,7 +73,6 @@ fml.define('DataCenter/js/components/base'
                     for (var i = 0, len = me.configurableProperties.length; i < len; i++) {
                         (function (index) {
                             var item = me.configurableProperties[index];
-
                             var value = '';
                             if (me.data) {
                                 value = me.data[item.key];
@@ -81,7 +80,6 @@ fml.define('DataCenter/js/components/base'
                             html += me.createElByName(item.type, item.label, item.key, item.value || value, item.data);
                         }(i))
                     }
-
                     container.html(html);
                     var x = e.clientX, y = e.clientY;
                     $('body').append(me.menu.css({'top': y, 'left': x}));
@@ -95,6 +93,7 @@ fml.define('DataCenter/js/components/base'
                 $(this.appEl).on('click', evt);
             },
             createElByName: function (type, label, key, value, data) {
+                var me = this;
                 var html = '<div>' + label;
                 var className = 'vl-' + key;
                 switch (type) {
@@ -107,7 +106,11 @@ fml.define('DataCenter/js/components/base'
                     case ControlType.select:
                         html += '<select class="' + className + '">';
                         for (var obj in data) {
-                            html += '<option>' + data[obj] + '</option>';
+                            if (data[obj] == ((me.data && me.data.type) || '')) {
+                                html += '<option selected>' + data[obj] + '</option>';
+                            } else {
+                                html += '<option>' + data[obj] + '</option>';
+                            }
                         }
                         html += '</select>';
                         break;

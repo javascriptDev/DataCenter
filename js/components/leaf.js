@@ -11,13 +11,6 @@ fml.define('DataCenter/js/components/leaf',
             controlType = require('DataCenter/js/config/controlType');
 
         function Leaf() {
-//            this.data = {
-//                key: '',
-//                type: '',
-//                label: '',
-//                regExp: ''
-//            }
-
         }
 
         var proto = Leaf.prototype = Object.create(new constructor());
@@ -25,7 +18,6 @@ fml.define('DataCenter/js/components/leaf',
         proto.appearanceCls += ' app-leaf';
         proto.inner = '<input class="value">';
         proto.text = '不可重复子节点';
-
 
         var prop = [
             {
