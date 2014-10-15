@@ -9,11 +9,10 @@
 
 <script>
 
-	function aa(a) {
-		a = a.sort(function (v1, v2) {
+	Array.prototype.distinct = function () {
+		var a = this.sort(function (v1, v2) {
 			return v1 > v2;
 		})
-
 		var s = {}
 		var arr = [];
 		var arrR = [];
@@ -44,8 +43,9 @@
 			arr: arrR
 		}
 	}
+
 	console.time('a')
-	aa([1, 2, 3, 4, 5, 6, 7, 8, 1, 2, 3, 4, 5, 6, 7, 8, 9, 9, 9]).arr;
+	console.log(Array.prototype.distinct.call([1, 2, 3, 4, 5, 6, 7, 8, 1, 2, 3, 4, 5, 6, 7, 8, 9, 9, 9]));
 	console.timeEnd('a');
 </script>
 </body>
