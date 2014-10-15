@@ -19,10 +19,35 @@ fml.define('DataCenter/js/components/node',
         proto.inner = '<div class="title">目录节点</div><div class="content"></div>';
         proto.isR = true;
 
-        proto.configurableProperties.push({
-            type: controlType.check,
-            label: 'isR',
-            value: true
-        });
+
+        var prop = [
+            {
+                type: controlType.text,
+                label: 'key',
+                key: 'key'
+            },
+            {
+                type: controlType.select,
+                label: 'datatype',
+                key: 'datatype',
+                data: controlType
+            },
+            {
+                type: controlType.text,
+                label: 'label',
+                key: 'label'
+            },
+            {
+                type: controlType.text,
+                label: 'regExp',
+                key: 'regExp',
+                key: 'regExp'
+            }
+        ]
+        prop.forEach(function (item) {
+            proto.configurableProperties.push(item);
+        })
+
+
         return Node;
     })

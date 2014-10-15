@@ -8,7 +8,7 @@ fml.define('DataCenter/js/page/init',
         'DataCenter/js/components/repeatLeaf',
         'DataCenter/js/lib/ps'
     ], function (require, exports) {
-        cache = {},
+        var cache = {},
             help = {
                 query: function (id) {
                     for (var i in cache) {
@@ -134,6 +134,9 @@ fml.define('DataCenter/js/page/init',
                                 regExp: regExp
                             }
                             $('.menu').hide();
+                            $(to.appEl).addClass('ok');
+                            $(to.el).addClass('ok');
+
                             break;
                         case 'i-del':
                             var to = help.query(id);

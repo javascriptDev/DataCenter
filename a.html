@@ -3,28 +3,50 @@
 <head lang="en">
 	<meta charset="UTF-8">
 	<title></title>
-
-	<style>
-
-		.a {
-			position: relative;
-		}
-
-		.a:before {
-			content: attr(data-a);
-			color: red;
-			position: absolute;
-			top: 100px;
-		}
-	</style>
 </head>
 <body>
-<form action="server.cgi" method="post" enctype="multipart/form-data">
-	<input type="file" name="image" accept="image/*" capture>
-	<input type="submit" value="Upload">
-</form>
+
 
 <script>
+
+	function aa(a) {
+		a = a.sort(function (v1, v2) {
+			return v1 > v2;
+		})
+
+		var s = {}
+		var arr = [];
+		var arrR = [];
+
+		for (var i = 0; i < a.length; i++) {
+			if (s[a[i]]) {
+				s[a[i]]['c'] += 1;
+			} else {
+				s[a[i]] = {
+					c: 1
+				}
+			}
+		}
+
+		for (var i in s) {
+			s[i].v = i;
+			arr.push(s[i]);
+		}
+
+		arr.sort(function (v1, v2) {
+			return v1.c < v2.c;
+		}).forEach(function (v) {
+			arrR.push(v.v);
+		})
+
+		return {
+			count: Object.keys(s).length,
+			arr: arrR
+		}
+	}
+	console.time('a')
+	aa([1, 2, 3, 4, 5, 6, 7, 8, 1, 2, 3, 4, 5, 6, 7, 8, 9, 9, 9]).arr;
+	console.timeEnd('a');
 </script>
 </body>
 </html>
