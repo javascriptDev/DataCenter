@@ -4,20 +4,22 @@
 fml.define('DataCenter/js/components/leaf',
     [
         'DataCenter/js/components/base',
-        'DataCenter/js/config/controlType'
+        'DataCenter/js/util/ControlFactory'
     ], function (require, exports) {
         var Base = require('DataCenter/js/components/base'),
             constructor = Base.ct,
-            controlType = require('DataCenter/js/config/controlType');
+            factory = require('DataCenter/js/util/ControlFactory'),
+            controlType = factory.controlType;
 
-        function Leaf() {
+        function Leaf(opt) {
+            this.opt = opt || {};
+            this.text = this.opt.label || '不可重复子节点';
+            this.inner = factory.create(this.opt);
         }
 
         var proto = Leaf.prototype = Object.create(new constructor());
         proto.class += ' leaf';
         proto.appearanceCls += ' app-leaf';
-        proto.inner = '<input class="value">';
-        proto.text = '不可重复子节点';
 
         var prop = [
             {

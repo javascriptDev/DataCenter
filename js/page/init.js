@@ -160,6 +160,7 @@ fml.define('DataCenter/js/page/init',
 
         //递归 child
         function recursive(par, o) {
+            par.data.ctype = par.type;
             if (par.childs && par.childs.length > 0) {
                 var container = [];
                 if (isArray(o)) {
@@ -171,6 +172,8 @@ fml.define('DataCenter/js/page/init',
                     o.data = par.data;
                     o.items = container;
                 }
+                //复制控件类型到数据表述对象，便于生成表单判断节点类型
+
                 for (var i = 0, len = par.childs.length; i < len; i++) {
                     recursive(par.childs[i], container);
                 }
@@ -197,7 +200,22 @@ fml.define('DataCenter/js/page/init',
         }
 
         function parseData(data) {
+            document.body.innerHTML = '';
+            var div = document.createElement('div');
+            parseRecursive(data, div);
+            document.body.innerHTML = div.outerHTML;
+        }
 
+        function parseRecursive(data, domContainer) {
+            if (data.data) {//有子集
+                var el = new struck[data.data.ctype]().init().el;
+                domContainer.appendChild(el);
+                for (var i = 0; i < data.items.length; i++) {
+                    parseRecursive(data.items[i], el);
+                }
+            } else {
+                domContainer.appendChild(new struck[data.ctype](data).init().el);
+            }
         }
 
         function initPubSub() {

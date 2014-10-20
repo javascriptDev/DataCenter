@@ -4,12 +4,13 @@
 fml.define('DataCenter/js/components/base'
     , [
         'DataCenter/js/lib/ps',
-        'DataCenter/js/config/controlType'
+        'DataCenter/js/util/ControlFactory'
     ]
     , function (require, exports) {
 
-        var EventEmitter = require('DataCenter/js/lib/ps');
-        var ControlType = require('DataCenter/js/config/controlType');
+        var EventEmitter = require('DataCenter/js/lib/ps'),
+            factory = require('DataCenter/js/util/ControlFactory'),
+            ControlType = factory.controlType;
 
         function inherit(subclass, superclass) {
             var F = function () {
@@ -42,7 +43,6 @@ fml.define('DataCenter/js/components/base'
             this.inner = '';
             this.appearanceCls = 'app-c'
 
-            var me = this;
             this.configurableProperties = [];
         }
 
@@ -52,6 +52,7 @@ fml.define('DataCenter/js/components/base'
             '<div class="menu-item i-save">保存</div>' +
             '<div class="menu-item i-mdown">下移</div>' +
             '</div>';
+
         Base.prototype = {
             menu: $(menu),
             init: function () {
@@ -77,7 +78,8 @@ fml.define('DataCenter/js/components/base'
                             if (me.data) {
                                 value = me.data[item.key];
                             }
-                            html += me.createElByName(item.type, item.label, item.key, item.value || value, item.data);
+                            !item.value && (item.value = value);
+                            html += factory.create(item);
                         }(i))
                     }
                     container.html(html);
@@ -91,36 +93,8 @@ fml.define('DataCenter/js/components/base'
 
                 $(this.el).on('click', evt);
                 $(this.appEl).on('click', evt);
-            },
-            createElByName: function (type, label, key, value, data) {
-                var me = this;
-                var html = '<div>' + label;
-                var className = 'vl-' + key;
-                switch (type) {
-                    case ControlType.text:
-                        html += '<input type="text" class="' + className + '" value="' + (value || '') + '" />';
-                        break;
-                    case ControlType.check:
-                        html += '<div class="' + className + '"> true <input  type="checkbox" class="t"> false<input type="checkbox" class="f"></div>';
-                        break;
-                    case ControlType.select:
-                        html += '<select class="' + className + '">';
-                        for (var obj in data) {
-                            if (data[obj] == ((me.data && me.data.type) || '')) {
-                                html += '<option selected>' + data[obj] + '</option>';
-                            } else {
-                                html += '<option>' + data[obj] + '</option>';
-                            }
-                        }
-                        html += '</select>';
-                        break;
-                    default :
-                        return '';
-                        break;
-                }
-                html += '</div>';
-                return html;
             }
+
         }
         return  { ct: Base, type: ControlType};
     })

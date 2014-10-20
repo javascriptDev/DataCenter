@@ -1,0 +1,33 @@
+{"data": {
+    "key": "wer",
+    "label": "wer",
+    "type": "text",
+    "regExp": "wer",
+    "ctype": "node"
+}, "items": [
+    {
+        "key": "e",
+        "label": "ew",
+        "type": "text",
+        "regExp": "ee",
+        "ctype": "leaf"
+    },
+    {
+        "data": {
+            "key": "sdf",
+            "label": "sdf",
+            "type": "text",
+            "regExp": "sdf",
+            "ctype": "node"
+        },
+        "items": [
+            {
+                "key": "sdf",
+                "label": "4",
+                "type": "text",
+                "regExp": "fff",
+                "ctype": "leaf"
+            }
+        ]
+    }
+]}
