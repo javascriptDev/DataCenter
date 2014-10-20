@@ -13,6 +13,7 @@ fml.define('DataCenter/js/util/ControlFactory',
 
 
         var create = function (opt/*type, label, key, value, data*/) {
+            if (!opt)return '';
 
             var type = opt.type || '',
                 label = opt.label || '',
@@ -20,6 +21,7 @@ fml.define('DataCenter/js/util/ControlFactory',
                 value = opt.value || '',
                 data = opt.data || {},
                 html = '<div>' + label,
+                selected = opt.select || '',
                 className = 'vl-' + key;
 
             switch (type) {
@@ -32,7 +34,8 @@ fml.define('DataCenter/js/util/ControlFactory',
                 case controlType.select:
                     html += '<select class="' + className + '">';
                     for (var obj in data) {
-                        if (data[obj] == type) {
+                        console.log(data[obj] + '  ' + selected);
+                        if (data[obj] == selected) {
                             html += '<option selected>' + data[obj] + '</option>';
                         } else {
                             html += '<option>' + data[obj] + '</option>';

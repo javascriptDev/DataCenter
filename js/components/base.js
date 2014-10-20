@@ -79,6 +79,9 @@ fml.define('DataCenter/js/components/base'
                                 value = me.data[item.key];
                             }
                             !item.value && (item.value = value);
+                            if (item.type == ControlType.select&&me.data) {
+                                item.select = me.data.type;
+                            }
                             html += factory.create(item);
                         }(i))
                     }
