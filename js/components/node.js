@@ -9,14 +9,16 @@ fml.define('DataCenter/js/components/node',
             constructor = Base.ct,
             controlType = Base.type;
 
-        function Node() {
+        function Node(opt) {
             this.childs = [];
+            this.opt = opt || {};
+            console.log(this.opt);
+            this.inner = '<div class="title">' + (this.opt.label || "目录节点") + '</div><div class="content"></div>';
         }
 
         var proto = Node.prototype = Object.create(new constructor());
         proto.class += ' node';
         proto.appearanceCls += ' app-node';
-        proto.inner = '<div class="title">目录节点</div><div class="content"></div>';
         proto.isR = true;
 
 
@@ -27,21 +29,9 @@ fml.define('DataCenter/js/components/node',
                 key: 'key'
             },
             {
-                type: controlType.select,
-                label: 'datatype',
-                key: 'datatype',
-                data: controlType
-            },
-            {
                 type: controlType.text,
                 label: 'label',
                 key: 'label'
-            },
-            {
-                type: controlType.text,
-                label: 'regExp',
-                key: 'regExp',
-                key: 'regExp'
             }
         ]
         prop.forEach(function (item) {

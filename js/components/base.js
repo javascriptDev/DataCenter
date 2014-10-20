@@ -56,8 +56,8 @@ fml.define('DataCenter/js/components/base'
         Base.prototype = {
             menu: $(menu),
             init: function () {
-                var html = '<div class="' + (this.class || '') + ' ' + (this.appearanceCls || '') + '">' + (this.text || '') + '</div>';
-                this.appEl = $(html)[0];
+                var html = '<div class="' + (this.class || '') + ' ' + (this.appearanceCls || '') + '"></div>';
+                this.appEl = $(html).text((this.text || ''))[0];
                 this.el = $(html).append(this.inner)[0];
 
                 this.addEvent();
@@ -75,11 +75,11 @@ fml.define('DataCenter/js/components/base'
                         (function (index) {
                             var item = me.configurableProperties[index];
                             var value = '';
-                            if (me.data) {
-                                value = me.data[item.key];
-                            }
+                            //初始化
+                            me.data && (value = me.data[item.key]);
                             !item.value && (item.value = value);
-                            if (item.type == ControlType.select&&me.data) {
+
+                            if (item.type == ControlType.select && me.data) { //被赋值的组件 才有data属性。
                                 item.select = me.data.type;
                             }
                             html += factory.create(item);

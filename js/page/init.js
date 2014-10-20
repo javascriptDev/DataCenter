@@ -208,7 +208,7 @@ fml.define('DataCenter/js/page/init',
 
         function parseRecursive(data, domContainer) {
             if (data.data) {//有子集
-                var el = new struck[data.data.ctype]().init().el;
+                var el = new struck[data.data.ctype](data.data).init().el;
                 domContainer.appendChild(el);
                 for (var i = 0; i < data.items.length; i++) {
                     parseRecursive(data.items[i], el);

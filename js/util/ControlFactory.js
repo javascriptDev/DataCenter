@@ -34,7 +34,6 @@ fml.define('DataCenter/js/util/ControlFactory',
                 case controlType.select:
                     html += '<select class="' + className + '">';
                     for (var obj in data) {
-                        console.log(data[obj] + '  ' + selected);
                         if (data[obj] == selected) {
                             html += '<option selected>' + data[obj] + '</option>';
                         } else {
