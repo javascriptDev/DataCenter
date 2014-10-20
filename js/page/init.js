@@ -161,10 +161,18 @@ fml.define('DataCenter/js/page/init',
         //递归 child
         function recursive(par, o) {
             if (par.childs && par.childs.length > 0) {
-                o.items = [];
-                o.data = par.data;
+                var container = [];
+                if (isArray(o)) {
+                    o.push({
+                        data: par.data,
+                        items: container
+                    })
+                } else {
+                    o.data = par.data;
+                    o.items = container;
+                }
                 for (var i = 0, len = par.childs.length; i < len; i++) {
-                    recursive(par.childs[i], o.items);
+                    recursive(par.childs[i], container);
                 }
             } else {
                 o.push(par.data);
@@ -183,6 +191,10 @@ fml.define('DataCenter/js/page/init',
             var data = localStorage.getItem('a');
             parseData(JSON.parse(data));
         })
+
+        function isArray(a) {
+            return a && Object.prototype.toString.call(a) == '[object Array]';
+        }
 
         function parseData(data) {
 
