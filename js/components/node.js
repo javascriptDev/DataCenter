@@ -12,7 +12,6 @@ fml.define('DataCenter/js/components/node',
         function Node(opt) {
             this.childs = [];
             this.opt = opt || {};
-            console.log(this.opt);
             this.inner = '<div class="title">' + (this.opt.label || "目录节点") + '</div><div class="content"></div>';
         }
 
