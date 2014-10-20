@@ -131,3 +131,13 @@ article .content {
 .left .left-inner {
   margin-top: 100px;
 }
+.repeat-c {
+  position: relative;
+}
+.repeat-c i {
+  position: absolute;
+  right: 10px;
+  top: 0px;
+  color: red;
+  border: 1px solid white;
+}

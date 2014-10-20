@@ -14,7 +14,7 @@ fml.define('DataCenter/js/components/repeatLeaf',
         function RepeatLeaf(opt) {
             this.opt = opt || {};
             this.text = this.opt.label || '可重复子节点';
-            this.inner = factory.create(this.opt);
+            this.inner = '<div class="repeat-c">' + factory.create(this.opt) + '<i>+</i></div>';
 
         }
 
