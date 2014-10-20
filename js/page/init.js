@@ -8,7 +8,7 @@ fml.define('DataCenter/js/page/init',
         'DataCenter/js/components/repeatLeaf',
         'DataCenter/js/lib/ps'
     ], function (require, exports) {
-        var cache = {},
+        cache = {},
             help = {
                 query: function (id) {
                     for (var i in cache) {
@@ -107,6 +107,7 @@ fml.define('DataCenter/js/page/init',
             o.id = uuid();
             cache[index] = o;
             o.el.id = o.id;
+            o.type = 'node';
             center.append(o.el);
             o.menu.click(function (e) {
 //                console.log(o.menu.target)
@@ -160,12 +161,13 @@ fml.define('DataCenter/js/page/init',
         //递归 child
         function recursive(par, o) {
             if (par.childs && par.childs.length > 0) {
+                o.items = [];
+                o.data = par.data;
                 for (var i = 0, len = par.childs.length; i < len; i++) {
-                    recursive(par.childs[i]);
-                    console.log(par);
+                    recursive(par.childs[i], o.items);
                 }
             } else {
-                console.log(par);
+                o.push(par.data);
             }
         }
 
@@ -173,7 +175,18 @@ fml.define('DataCenter/js/page/init',
             var items = cache['a0'];
             var o = {};
             recursive(items, o);
+            console.log(o);
+            localStorage.setItem('a', JSON.stringify(o));
         });
+
+        $('.fill').click(function () {
+            var data = localStorage.getItem('a');
+            parseData(JSON.parse(data));
+        })
+
+        function parseData(data) {
+
+        }
 
         function initPubSub() {
             EventEmitter.sub('add', function (e) {
@@ -192,6 +205,7 @@ fml.define('DataCenter/js/page/init',
                 o.id = uuid();
                 targetEl.id = o.id;
                 cache[index] = o;
+                o.type = type;
                 oel.appendChild(targetEl);
                 cache[oel.parentNode.getAttribute('data-id')].childs.push(o);
             });
