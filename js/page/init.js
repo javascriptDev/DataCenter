@@ -25,6 +25,7 @@ fml.define('DataCenter/js/page/init',
                 modify: function (id, opt) {
                 }
             },
+
             factory = require('DataCenter/js/util/componentFactory'),
             EventEmitter = require('DataCenter/js/lib/ps'),
             uuid = (function () {
