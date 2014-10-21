@@ -95,12 +95,13 @@ fml.define('DataCenter/js/page/init',
                             $('[required="required"] input').each(function () {
                                 if ($(this).val().replace(/s/ig, '') == '') {
                                     isOK = false;
+                                    notification.show($(this).attr('placeHolder') + ' 必须要填写');
                                     return;
                                 }
                             })
 
                             if (!isOK) return;
-                            
+
                             var to = help.query(id);
                             var label = $('.vl-label').val(),
                                 type = $('.vl-datatype option:selected').text(),

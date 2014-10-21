@@ -17,7 +17,7 @@ fml.define('DataCenter/js/components/notification',
         Notification.prototype = {
             init: function () {
                 this.el = $('<div class="notification">' + this.content + '</div>')
-                    .css({position: 'absolute', top: '100px', right: '-100px', transition: '.5s right', background: '#428bca', color: 'white', height: '30px', lineHeight: '30px', padding: '10px 30px'});
+                    .css({zIndex: 1000, position: 'absolute', top: '100px', right: '-100px', transition: '.5s right', background: '#428bca', color: 'white', height: '30px', lineHeight: '30px', padding: '10px 30px'});
                 $('body').append(this.el);
             },
             show: function (text) {
@@ -29,7 +29,7 @@ fml.define('DataCenter/js/components/notification',
                 }, 2000)
             },
             hide: function () {
-                this.el.css('right', '-160px');
+                this.el.css('right', -(this.el.width() + 60));
             }
         };
 
