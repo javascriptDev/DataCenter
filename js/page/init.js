@@ -100,7 +100,7 @@ fml.define('DataCenter/js/page/init',
                                 }
                             })
 
-                            if (!isOK) return;
+                            if (!isOk) return;
 
                             var to = help.query(id);
                             var label = $('.vl-label').val(),
@@ -164,6 +164,17 @@ fml.define('DataCenter/js/page/init',
         }
 
         $('.sub').click(function () {
+            var canSubmit = true;
+            $('.app-c').each(function () {
+                !$(this).hasClass('ok') && (canSubmit = false);
+                return;
+            })
+
+            if (!canSubmit) {
+                notification.show('某些必填数据没有填写,请填写');
+                return;
+            }
+
             var items = cache['a0'];
             var o = {};
             recursive(items, o);
