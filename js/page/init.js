@@ -6,16 +6,22 @@ fml.define('DataCenter/js/page/init',
         'DataCenter/js/util/componentFactory',
         'DataCenter/js/lib/ps',
         'DataCenter/js/util/cache',
-        'DataCenter/js/util/util'
-
-    ], function (require, exports) {
+        'DataCenter/js/util/util',
+        'DataCenter/js/components/notification'
+    ]
+    , function (require, exports) {
 
         var factory = require('DataCenter/js/util/componentFactory'),
             leftItem = factory.cl, // 节点类型枚举
             EventEmitter = require('DataCenter/js/lib/ps'),
             cache = require('DataCenter/js/util/cache').cache,
             help = require('DataCenter/js/util/cache').help,
-            uuid = require('DataCenter/js/util/util').uuid;
+            util = require('DataCenter/js/util/util'),
+            uuid = util.uuid,
+            isArray = util.isArr,
+            notificationConstructor = require('DataCenter/js/components/notification'),
+            notification = new notificationConstructor();
+
 
         var left = $('.left-inner'),
             right = $('.right'),
@@ -38,7 +44,7 @@ fml.define('DataCenter/js/page/init',
         function initLeft(item) {
             var html = '';
             item.forEach(function (node) {
-                html += '<div draggable=true class="' + node.name + '">' + node.text + '</div>'
+                html += '<div data-role=button draggable=true class="' + node.name + '">' + node.text + '</div>'
             })
             left.append(html);
             initDrag();
@@ -151,6 +157,8 @@ fml.define('DataCenter/js/page/init',
             recursive(items, o);
             console.log(o);
             localStorage.setItem('a', JSON.stringify(o));
+            notification.show('保存成功');
+
         });
 
         $('.fill').click(function () {
@@ -158,9 +166,6 @@ fml.define('DataCenter/js/page/init',
             parseData(JSON.parse(data));
         })
 
-        function isArray(a) {
-            return a && Object.prototype.toString.call(a) == '[object Array]';
-        }
 
         //解析模板
         function parseData(data) {

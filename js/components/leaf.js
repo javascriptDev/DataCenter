@@ -5,7 +5,8 @@ fml.define('DataCenter/js/components/leaf',
     [
         'DataCenter/js/components/base',
         'DataCenter/js/util/ControlFactory'
-    ], function (require, exports) {
+    ]
+    , function (require, exports) {
         var Base = require('DataCenter/js/components/base'),
             constructor = Base.ct,
             factory = require('DataCenter/js/util/ControlFactory'),

@@ -19,8 +19,13 @@ fml.define('DataCenter/js/util/util',
             };
         })();
 
+        function isArray(a) {
+            return a && Object.prototype.toString.call(a) == '[object Array]';
+        }
+
         return {
-            uuid: uuid
+            uuid: uuid,
+            isArr: isArray
         }
 
     }

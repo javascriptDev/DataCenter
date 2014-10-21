@@ -16,7 +16,7 @@ fml.define('DataCenter/js/util/ControlFactory',
             if (!opt)return '';
 
             var type = opt.type || '',
-                label = opt.label || '',
+                label = opt.label || opt.key || '',
                 key = opt.key || '',
                 value = opt.value || '',
                 data = opt.data || {},

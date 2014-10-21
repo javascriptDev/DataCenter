@@ -118,6 +118,17 @@ article .content {
   border-left: 1px solid #ffffff;
   border-top: 1px solid #ffffff;
 }
+[data-role='button'] {
+  color: #fff;
+  background-color: #428bca;
+  border-color: #357ebd;
+  margin-top: 5px;
+}
+[data-role='button']:hover {
+  color: #fff;
+  background-color: #3071a9;
+  border-color: #285e8e;
+}
 .left {
   float: left;
   width: 15%;
