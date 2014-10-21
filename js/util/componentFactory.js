@@ -22,12 +22,26 @@ fml.define('DataCenter/js/util/componentFactory',
                 node: Node,
                 leaf: Leaf,
                 rLeaf: RepeatLeaf
-            }
+            },
+            componentList = [
+                {
+                    name: 'node',
+                    text: '容器'
+                },
+                {
+                    name: 'leaf',
+                    text: '不可重复节点'
+                },
+                {
+                    name: 'rLeaf',
+                    text: '可重复节点'
+                }
+            ]
 
         var create = function (type, cfg) {
             return new struck[type](cfg).init()
         }
-        return {create: create};
+        return {create: create, cl: componentList};
 
     }
 )

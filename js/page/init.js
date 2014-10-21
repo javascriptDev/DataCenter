@@ -4,53 +4,22 @@
 fml.define('DataCenter/js/page/init',
     [
         'DataCenter/js/util/componentFactory',
-        'DataCenter/js/lib/ps'
+        'DataCenter/js/lib/ps',
+        'DataCenter/js/util/cache',
+        'DataCenter/js/util/util'
     ], function (require, exports) {
-        cache = {},
-            help = {
-                query: function (id) {
-                    for (var i in cache) {
-                        if (cache[i].id == id) {
-                            return cache[i];
-                        }
-                    }
-                },
-                del: function (id, cb) {
-                    $.each(cache, function (key, value) {
-                        (value.id == id) && (delete cache[key]);
-                        cb && cb();
-                        return;
-                    });
-                },
-                modify: function (id, opt) {
-                }
-            },
-
-            factory = require('DataCenter/js/util/componentFactory'),
+        factory = require('DataCenter/js/util/componentFactory'),
             EventEmitter = require('DataCenter/js/lib/ps'),
-            uuid = (function () {
-                function s4() {
-                    return Math.floor((1 + Math.random()) * 0x10000)
-                        .toString(16)
-                        .substring(1);
-                }
-
-                return function () {
-                    return s4() + s4() + '-' + s4() + '-' + s4();// + '-' +
-                    //s4() + '-' + s4() + s4() + s4();
-                };
-            })();
+            cache = require('DataCenter/js/util/cache').cache,
+            help = require('DataCenter/js/util/cache').help,
+            uuid = require('DataCenter/js/util/util').uuid;
 
         var left = $('.left-inner'),
             right = $('.right'),
             center = $('article'),
             height = document.documentElement.clientHeight,
-        // 节点类型枚举
-            leftItem = [
-                {name: 'node', text: '容器'},
-                {name: 'leaf', text: '数据节点'},
-                {name: 'rLeaf', text: '可重复数据节点'}
-            ];
+        // 所有组件枚举类型
+            leftItem = factory.cl;
 
         initPubSub();
         initLayout();
