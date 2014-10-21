@@ -23,12 +23,15 @@ fml.define('DataCenter/js/components/node',
             {
                 type: controlType.text,
                 label: '数据字段',
-                key: 'key'
+                key: 'key',
+                placeHolder: '生成json key',
+                required: 1
             },
             {
                 type: controlType.text,
                 label: '字段名',
-                key: 'label'
+                key: 'label',
+                placeHolder: '填数据表单label'
             },
             {
                 type: controlType.radio,

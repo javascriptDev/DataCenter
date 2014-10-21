@@ -26,7 +26,9 @@ fml.define('DataCenter/js/components/leaf',
             {
                 type: controlType.text,
                 label: '数据字段',
-                key: 'key'
+                key: 'key',
+                placeHolder: '生成json key',
+                required: 1
             },
             {
                 type: controlType.select,
@@ -37,12 +39,16 @@ fml.define('DataCenter/js/components/leaf',
             {
                 type: controlType.text,
                 label: '字段名',
-                key: 'label'
+                key: 'label',
+                placeHolder: '填数据表单label',
+                required: 1
+
             },
             {
                 type: controlType.text,
                 label: '正则验证',
-                key: 'regExp'
+                key: 'regExp',
+                placeHolder: '正则表达式'
             }
         ]
         prop.forEach(function (item) {

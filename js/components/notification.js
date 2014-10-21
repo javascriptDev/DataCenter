@@ -18,7 +18,6 @@ fml.define('DataCenter/js/components/notification',
             init: function () {
                 this.el = $('<div class="notification">' + this.content + '</div>')
                     .css({position: 'absolute', top: '100px', right: '-100px', transition: '.5s right', background: '#428bca', color: 'white', height: '30px', lineHeight: '30px', padding: '10px 30px'});
-
                 $('body').append(this.el);
             },
             show: function (text) {

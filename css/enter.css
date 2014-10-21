@@ -9,7 +9,7 @@
   margin: 0;
 }
 .right {
-  width: 15%;
+  width: 29%;
   float: right;
   border: 1px solid #ff0000;
 }
@@ -17,7 +17,7 @@
   border: 2px solid red !important;
 }
 article {
-  width: 69%;
+  width: 55%;
   float: left;
   border: 1px solid #ff0000;
 }
@@ -151,4 +151,63 @@ article .content {
   top: 0px;
   color: red;
   border: 1px solid white;
+}
+.input-group {
+  position: relative;
+  display: table;
+  margin-top: 20px;
+  border-collapse: separate;
+}
+.input-group .input-group-addon {
+  display: block;
+  padding: 6px 12px;
+  font-size: 14px;
+  font-weight: 400;
+  color: #555;
+  text-align: center;
+  background-color: #eee;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+.input-group .form-control {
+  display: table-cell;
+  position: relative;
+  z-index: 2;
+  float: left;
+  width: 150px;
+  margin-bottom: 0;
+  height: 15px;
+  padding: 6px 12px;
+  font-size: 14px;
+  line-height: 1.42857143;
+  color: #555;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+.input-group select,
+.input-group .vl-repeat {
+  width: 174px;
+  margin-bottom: 0;
+  height: 15px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  height: 30px;
+  line-height: 30px;
+  text-align: center;
+}
+.input-group .vl-repeat div {
+  margin-left: 30px;
+  display: inline-block;
+}
+div[required='required']:after {
+  position: absolute;
+  content: '*';
+  color: red;
+  right: 5px;
+  bottom: 5px;
+  z-index: 999;
+}
+input[class='right']:after {
+  color: green;
 }
