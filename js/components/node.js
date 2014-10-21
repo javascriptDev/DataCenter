@@ -18,8 +18,6 @@ fml.define('DataCenter/js/components/node',
         var proto = Node.prototype = Object.create(new constructor());
         proto.class += ' node';
         proto.appearanceCls += ' app-node';
-        proto.isR = true;
-
 
         var prop = [
             {

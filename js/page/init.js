@@ -7,7 +7,7 @@ fml.define('DataCenter/js/page/init',
         'DataCenter/js/lib/ps',
         'DataCenter/js/util/cache',
         'DataCenter/js/util/util'
-        
+
     ], function (require, exports) {
 
         var factory = require('DataCenter/js/util/componentFactory'),
