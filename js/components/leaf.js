@@ -24,24 +24,23 @@ fml.define('DataCenter/js/components/leaf',
         var prop = [
             {
                 type: controlType.text,
-                label: 'key',
+                label: '数据字段',
                 key: 'key'
             },
             {
                 type: controlType.select,
-                label: 'datatype',
+                label: '数据类型',
                 key: 'datatype',
                 data: controlType
             },
             {
                 type: controlType.text,
-                label: 'label',
+                label: '字段名',
                 key: 'label'
             },
             {
                 type: controlType.text,
-                label: 'regExp',
-                key: 'regExp',
+                label: '正则验证',
                 key: 'regExp'
             }
         ]

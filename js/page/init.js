@@ -3,9 +3,7 @@
  */
 fml.define('DataCenter/js/page/init',
     [
-        'DataCenter/js/components/leaf',
-        'DataCenter/js/components/node',
-        'DataCenter/js/components/repeatLeaf',
+        'DataCenter/js/util/componentFactory',
         'DataCenter/js/lib/ps'
     ], function (require, exports) {
         cache = {},
@@ -27,9 +25,7 @@ fml.define('DataCenter/js/page/init',
                 modify: function (id, opt) {
                 }
             },
-            Leaf = require('DataCenter/js/components/leaf'),
-            Node = require('DataCenter/js/components/node'),
-            RepeatLeaf = require('DataCenter/js/components/repeatLeaf'),
+            factory = require('DataCenter/js/util/componentFactory'),
             EventEmitter = require('DataCenter/js/lib/ps'),
             uuid = (function () {
                 function s4() {
@@ -53,13 +49,7 @@ fml.define('DataCenter/js/page/init',
                 {name: 'node', text: '容器'},
                 {name: 'leaf', text: '数据节点'},
                 {name: 'rLeaf', text: '可重复数据节点'}
-            ],
-        //节点构造函数
-            struck = {
-                node: Node,
-                leaf: Leaf,
-                rLeaf: RepeatLeaf
-            }
+            ];
 
         initPubSub();
         initLayout();
@@ -101,7 +91,7 @@ fml.define('DataCenter/js/page/init',
 
         //初始化工作区
         function initCenter() {
-            var o = new struck['node']().init(); //Object.create(struct['node']);
+            var o = factory.create('node'); //Object.create(struct['node']);
             var index = 'a' + Object.keys(cache).length;
             o.el.setAttribute('data-id', index);
             o.id = uuid();
@@ -127,12 +117,14 @@ fml.define('DataCenter/js/page/init',
                             var label = $('.vl-label').val(),
                                 type = $('.vl-datatype option:selected').text(),
                                 key = $('.vl-key').val(),
-                                regExp = $('.vl-regExp').val();
+                                regExp = $('.vl-regExp').val(),
+                                isRepeat = $('.vl-repeat input:checked').attr('class') == 't' ? true : false;
                             to.data = {
                                 key: key,
                                 label: label,
                                 type: type,
-                                regExp: regExp
+                                regExp: regExp,
+                                isRepeat: isRepeat
                             }
                             $('.menu').hide();
                             $(to.appEl).addClass('ok');
@@ -199,6 +191,7 @@ fml.define('DataCenter/js/page/init',
             return a && Object.prototype.toString.call(a) == '[object Array]';
         }
 
+        //解析模板
         function parseData(data) {
             document.body.innerHTML = '';
             var div = document.createElement('div');
@@ -206,15 +199,16 @@ fml.define('DataCenter/js/page/init',
             document.body.innerHTML = div.outerHTML;
         }
 
+        //根据模板生成表单
         function parseRecursive(data, domContainer) {
             if (data.data) {//有子集
-                var el = new struck[data.data.ctype](data.data).init().el;
+                var el = factory.create(data.data.ctype, data, data).el;
                 domContainer.appendChild(el);
                 for (var i = 0; i < data.items.length; i++) {
                     parseRecursive(data.items[i], el);
                 }
             } else {
-                domContainer.appendChild(new struck[data.ctype](data).init().el);
+                domContainer.appendChild(factory.create(data.ctype, data).el);
             }
         }
 
@@ -224,7 +218,8 @@ fml.define('DataCenter/js/page/init',
                     oel = eo.srcElement;
                 if (oel.className !== 'content') return;
                 var type = eo.dataTransfer.getData('type');
-                var o = new struck[type]().init();   //Object.create(struct[type]);
+                //创建组件
+                var o = factory.create(type);   //Object.create(struct[type]);
                 //dom 对应 object
                 var index = 'a' + Object.keys(cache).length;
                 var targetEl = o.appEl;

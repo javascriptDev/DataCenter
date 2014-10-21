@@ -24,13 +24,18 @@ fml.define('DataCenter/js/components/node',
         var prop = [
             {
                 type: controlType.text,
-                label: 'key',
+                label: '数据字段',
                 key: 'key'
             },
             {
                 type: controlType.text,
-                label: 'label',
+                label: '字段名',
                 key: 'label'
+            },
+            {
+                type: controlType.radio,
+                label: '可重复',
+                key: 'repeat'
             }
         ]
         prop.forEach(function (item) {

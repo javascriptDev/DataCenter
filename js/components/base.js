@@ -82,6 +82,9 @@ fml.define('DataCenter/js/components/base'
                             if (item.type == ControlType.select && me.data) { //被赋值的组件 才有data属性。
                                 item.select = me.data.type;
                             }
+                            if (item.type == ControlType.radio && me.data) {
+                                item.checked = me.data.isRepeat;
+                            }
                             html += factory.create(item);
                         }(i))
                     }

@@ -7,7 +7,7 @@ fml.define('DataCenter/js/util/ControlFactory',
 
         var controlType = {
             text: 'text',
-            check: 'check',
+            radio: 'radio',
             select: 'select'
         };
 
@@ -21,6 +21,7 @@ fml.define('DataCenter/js/util/ControlFactory',
                 value = opt.value || '',
                 data = opt.data || {},
                 html = '<div>' + label,
+                checked = opt.checked || '',
                 selected = opt.select || '',
                 className = 'vl-' + key;
 
@@ -28,8 +29,14 @@ fml.define('DataCenter/js/util/ControlFactory',
                 case controlType.text:
                     html += '<input type="text" class="' + className + '" value="' + (value || '') + '" />';
                     break;
-                case controlType.check:
-                    html += '<div class="' + className + '"> true <input  type="checkbox" class="t"> false<input type="checkbox" class="f"></div>';
+                case controlType.radio:
+                    html += '<div class="' + className + '"> ';
+                    if (checked) {
+                        html += 'true <input name="check" checked  type="radio" class="t">false<input name="check" type="radio" class="f">';
+                    } else {
+                        html += 'true <input name="check"  type="radio" class="t">false<input checked name="check" type="radio" class="f">';
+                    }
+                    html += '</div>';
                     break;
                 case controlType.select:
                     html += '<select class="' + className + '">';
