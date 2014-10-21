@@ -218,7 +218,7 @@ fml.define('DataCenter/js/page/init',
                     oel = eo.srcElement;
                 if (oel.className !== 'content') return;
                 var type = eo.dataTransfer.getData('type');
-                //创建组件
+                //创建组件根据类型
                 var o = factory.create(type);   //Object.create(struct[type]);
                 //dom 对应 object
                 var index = 'a' + Object.keys(cache).length;
