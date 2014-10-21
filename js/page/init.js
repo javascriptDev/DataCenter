@@ -7,8 +7,11 @@ fml.define('DataCenter/js/page/init',
         'DataCenter/js/lib/ps',
         'DataCenter/js/util/cache',
         'DataCenter/js/util/util'
+        
     ], function (require, exports) {
-        factory = require('DataCenter/js/util/componentFactory'),
+
+        var factory = require('DataCenter/js/util/componentFactory'),
+            leftItem = factory.cl, // 节点类型枚举
             EventEmitter = require('DataCenter/js/lib/ps'),
             cache = require('DataCenter/js/util/cache').cache,
             help = require('DataCenter/js/util/cache').help,
@@ -17,14 +20,11 @@ fml.define('DataCenter/js/page/init',
         var left = $('.left-inner'),
             right = $('.right'),
             center = $('article'),
-            height = document.documentElement.clientHeight,
-        // 所有组件枚举类型
-            leftItem = factory.cl;
+            height = document.documentElement.clientHeight;
 
         initPubSub();
         initLayout();
         initLeft(leftItem);
-        initDrag();
         initCenter();
 
         //初始化界面布局
@@ -41,6 +41,7 @@ fml.define('DataCenter/js/page/init',
                 html += '<div draggable=true class="' + node.name + '">' + node.text + '</div>'
             })
             left.append(html);
+            initDrag();
         }
 
         //初始化拖拽事件

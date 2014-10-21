@@ -4,7 +4,7 @@
 
 /**
  * Created by a2014 on 14/10/21.*/
-fml.define('DataCenter/js/util/cache',
+fml.define('DataCenter/js/util/util',
     function (require, exports) {
         var uuid = (function () {
             function s4() {
