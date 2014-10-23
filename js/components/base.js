@@ -88,6 +88,7 @@ fml.define('DataCenter/js/components/base'
                             html += factory.create(item);
                         }(i))
                     }
+
                     container.html(html);
                     var x = e.clientX, y = e.clientY;
                     $('body').append(me.menu.css({'top': y, 'left': x}));

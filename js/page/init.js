@@ -14,14 +14,13 @@ fml.define('DataCenter/js/page/init',
         var factory = require('DataCenter/js/util/componentFactory'),
             leftItem = factory.cl, // 节点类型枚举
             EventEmitter = require('DataCenter/js/lib/ps'),
-            cache = require('DataCenter/js/util/cache').cache,
             help = require('DataCenter/js/util/cache').help,
             util = require('DataCenter/js/util/util'),
             uuid = util.uuid,
             isArray = util.isArr,
             notificationConstructor = require('DataCenter/js/components/notification'),
             notification = new notificationConstructor();
-
+        cache = require('DataCenter/js/util/cache').cache;
 
         var left = $('.left-inner'),
             right = $('.right'),
@@ -94,7 +93,7 @@ fml.define('DataCenter/js/page/init',
                             //便利必填元素
                             $('[required="required"] input').each(function () {
                                 if ($(this).val().replace(/s/ig, '') == '') {
-                                    isOK = false;
+                                    isOk = false;
                                     notification.show($(this).attr('placeHolder') + ' 必须要填写');
                                     return;
                                 }
@@ -181,7 +180,6 @@ fml.define('DataCenter/js/page/init',
             console.log(o);
             localStorage.setItem('a', JSON.stringify(o));
             notification.show('保存成功');
-
         });
 
         $('.fill').click(function () {

@@ -59,7 +59,6 @@ fml.define('DataCenter/js/util/ControlFactory',
                     break;
             }
             html += '</div>';
-
             return html;
         }
         return {create: create, controlType: controlType};
