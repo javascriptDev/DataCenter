@@ -14,12 +14,18 @@ fml.define('DataCenter/js/components/repeatLeaf',
         function RepeatLeaf(opt) {
             this.opt = opt || {};
             this.text = this.opt.label || '可重复子节点';
-            this.inner = '<div class="repeat-c">' + factory.create(this.opt) + '<i>+</i></div>';
+            this.inner = '<div class="repeat-c">' + factory.create(this.opt) + '<div class="plus">+</div></div>';
         }
 
         var proto = RepeatLeaf.prototype = Object.create(new constructor());
         proto.class += ' rleaf';
 
         proto.appearanceCls += ' app-rLeaf';
+        proto.inited = function () {
+            console.log(this.el);
+            this.el.onclick = function () {
+                alert(1);
+            }
+        }
         return RepeatLeaf;
     })

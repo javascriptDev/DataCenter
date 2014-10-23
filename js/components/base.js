@@ -42,8 +42,8 @@ fml.define('DataCenter/js/components/base'
             this.class = 'c';
             this.inner = '';
             this.appearanceCls = 'app-c'
-
             this.configurableProperties = [];
+
         }
 
         var menu = '<div class="menu"><div class="menu-x i-close">x</div>' +
@@ -56,12 +56,13 @@ fml.define('DataCenter/js/components/base'
         Base.prototype = {
             menu: $(menu),
             init: function () {
+                var me = this;
                 var html = '<div class="' + (this.class || '') + ' ' + (this.appearanceCls || '') + '"></div>';
                 this.appEl = $(html).text((this.text || ''))[0];
                 this.el = $(html).append(this.inner)[0];
-
                 this.addEvent();
                 this.initalized = true;
+                this.inited && this.inited.call(me);
                 return this;
             },
             addEvent: function () {

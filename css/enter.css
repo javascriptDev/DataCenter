@@ -145,7 +145,7 @@ article .content {
 .repeat-c {
   position: relative;
 }
-.repeat-c i {
+.repeat-c .plus {
   position: absolute;
   right: 10px;
   top: 0px;

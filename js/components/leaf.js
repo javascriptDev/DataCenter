@@ -58,7 +58,5 @@ fml.define('DataCenter/js/components/leaf',
                 me.configurableProperties.push(item);
             })
         }
-
-
         return Leaf;
     })
