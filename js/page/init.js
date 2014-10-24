@@ -193,7 +193,7 @@ fml.define('DataCenter/js/page/init',
             document.body.innerHTML = '';
             var div = document.createElement('div');
             parseRecursive(data, div);
-            document.body.innerHTML = div.outerHTML;
+            document.body.appendChild(div);
         }
 
         //根据模板生成表单
