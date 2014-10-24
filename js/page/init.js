@@ -199,7 +199,7 @@ fml.define('DataCenter/js/page/init',
         //根据模板生成表单
         function parseRecursive(data, domContainer) {
             if (data.data) {//有子集
-                var el = factory.create(data.data.ctype, data, data).el;
+                var el = factory.create(data.data.ctype, data).el;
                 domContainer.appendChild(el);
                 for (var i = 0; i < data.items.length; i++) {
                     parseRecursive(data.items[i], el);
