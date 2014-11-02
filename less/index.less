@@ -8,15 +8,18 @@
   background: @pink;
 }
 
+@gray456: #ececec;
+@g222: #dedede;
+
 .pinkfont() {
   color: @pink;
 }
 
 .body {
-  background: rgb(244, 245, 246);
+  background: @g222;
   width: 990px;
   margin: 80px auto;
-  border: 1px solid rgb(222, 222, 222);
+  border: 1px solid @g222;
 
   & .header {
     .pinkbg();
@@ -64,15 +67,15 @@
   & .left {
     width: 639px;
     float: left;
-    border-right: 1px solid rgb(222, 222, 222);
-    border-left: 1px solid rgb(222, 222, 222);
-    border-bottom: 1px solid rgb(222, 222, 222);
+    border-right: 1px solid @g222;
+    border-left: 1px solid @g222;
+    border-bottom: 1px solid @g222;
 
     & .msg-control {
       position: relative;
       height: 135px;
       width: 100%;
-      border-top: 1px solid rgb(222, 222, 222);
+      border-top: 1px solid @g222;
       padding: 20px 30px 10px 40px;
       box-sizing: border-box;
       & .msg {
@@ -117,7 +120,7 @@
           right: 112px;
         }
         & .close {
-          background: rgb(204, 204, 204);
+          background: #cccccc;
           right: 20px;
         }
 
@@ -136,8 +139,56 @@
   & .right {
     float: right;
     //    width:350px;
-    width: 347px;
-    border: 1px solid green;
+    width: 348px;
+    border-right: 1px solid @g222;
+    border-bottom: 1px solid @g222;
+    & .tab-bar {
+      border-bottom: 1px solid @gray456;
+      color: #666666;
+      height: 45px;
+      line-height: 45px;
+    }
+    & .bar {
+      width: 173px;
+      border-bottom: 3px solid #f4f5f6;
+      font-size: 14px;
+      float: left;
+
+      text-align: center;
+    }
+    & .tab-selected {
+      border-bottom: 3px solid @pink;
+      .pinkfont();
+    }
+    & .list-question {
+      height: 40px;
+      line-height: 40px;
+      padding-left: 15px;
+      position: relative;
+      font-size: 12px;
+      color: #999999;
+    }
+
+    & .list-answer {
+      padding-left: 15px;
+      color: #666666;
+      padding: 11px 13px 15px 14px;
+      background: @gray456;
+    }
+
+    & .collapse {
+      background: url('../img/collapse.png') 320px center no-repeat;
+    }
+
+    & .expand {
+      background: url('../img/expand.png') 313px center no-repeat;
+    }
+
+    & .collapse + .list-answer {
+      display: none;
+    }
+  ;
+
   }
 
 }
