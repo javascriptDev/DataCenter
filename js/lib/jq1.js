@@ -2749,9 +2749,6 @@
         rquickExpr = /^(?:\s*(<[\w\W]+>)[^>]*|#([\w-]*))$/,
 
         init = jQuery.fn.init = function (selector, context) {
-            console.log(this);
-            debugger;
-
             var match, elem;
             // HANDLE: $(""), $(null), $(undefined), $(false)
             if (!selector) {
@@ -9078,7 +9075,7 @@
 
             // Uppercase the type
             s.type = s.type.toUpperCase();
-
+debugger;
             // Determine if request has content
             s.hasContent = !rnoContent.test(s.type);
 
